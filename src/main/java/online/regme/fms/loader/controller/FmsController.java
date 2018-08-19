@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/fms", produces = APPLICATION_JSON_VALUE)
 @Api(value = "Fms controller API")
 @Slf4j
 public class FmsController {
