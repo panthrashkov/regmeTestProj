@@ -17,6 +17,8 @@ public class FmsCsvParserTest {
     public void testParseFile(){
         List<Fms> list = fmsExcelParser.getFmsList(getClass().getResource(FILE_PATH).getFile());
         assertEquals(81, list.size());
-        assertEquals(" \"580-001\"".)
+        assertEquals("580-001", list.get(0).getCode());
+        assertEquals("ОУФМС РОССИИ ПО ПЕНЗЕНСКОЙ ОБЛ. В ЛЕНИНСКОМ Р-НЕ Г. ПЕНЗЫ", list.get(0).getName());
+        assertEquals(new Integer(13), list.get(0).getRecordVersion());
     }
 }

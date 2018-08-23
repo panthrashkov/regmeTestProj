@@ -1,11 +1,16 @@
 package online.regme.fms.loader.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.Date;
 
+
+
+@NamedQueries({
+        @NamedQuery(
+                name = "findFmsByCode",
+                query = "SELECT c FROM Fms c WHERE c.code = :code"
+        )
+})
 @Entity
 public class Fms {
 

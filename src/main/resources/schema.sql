@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS fms (
   id      INTEGER PRIMARY KEY  AUTO_INCREMENT,
-  code    INTEGER     NOT NULL,
-  name    VARCHAR(50) NOT NULL,
+  code    VARCHAR(50)  UNIQUE  NOT NULL,
+  name    VARCHAR(2000) NOT NULL,
   record_version INTEGER  NOT NULL,
   version DATE     NOT NULL
 );
