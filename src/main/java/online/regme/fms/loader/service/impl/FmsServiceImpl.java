@@ -9,7 +9,6 @@ import online.regme.fms.loader.service.FmsCsvParser;
 import online.regme.fms.loader.service.FmsService;
 import online.regme.fms.loader.view.FmsView;
 import org.apache.commons.io.FileUtils;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -42,6 +41,7 @@ public class FmsServiceImpl implements FmsService {
     }
 
     @Override
+    @Transactional
     public void update() {
         String fileName = createFileName();
         downloadFile(fmsUrl, fileName);
@@ -66,11 +66,6 @@ public class FmsServiceImpl implements FmsService {
 
     }
 
-    private void validate(List<Fms> fmsList) {
-        // TODO добавить валидацию если необходимо
-    }
-
-    @Transactional
     private void saveList(List<Fms> fmsList) {
         for(Fms fms : fmsList){
             Optional<Fms> loadedFms = fmsDao.getByCode(fms.getCode());
@@ -81,6 +76,10 @@ public class FmsServiceImpl implements FmsService {
                 loadedFms.get().setRecordVersion(fms.getRecordVersion());
             }
         }
+    }
+
+    private void validate(List<Fms> fmsList) {
+        // TODO добавить валидацию если необходимо
     }
 
     private void unzipFile(String fileName) {
@@ -108,11 +107,6 @@ public class FmsServiceImpl implements FmsService {
         }
     }
 
-    private String createFileName() {
-        return "temp" + UUID.randomUUID();
-    }
-
-
     private void downloadFile(String url, String localFilename) {
         try (InputStream in = new URL(url).openStream()) {
             Files.copy(in, Paths.get(localFilename + ".zip"), StandardCopyOption.REPLACE_EXISTING);
@@ -120,5 +114,8 @@ public class FmsServiceImpl implements FmsService {
             log.error("Не удалось скачать файл", exception);
             throw new DownloadFileException(exception);
         }
+    }
+    private String createFileName() {
+        return "temp" + UUID.randomUUID();
     }
 }

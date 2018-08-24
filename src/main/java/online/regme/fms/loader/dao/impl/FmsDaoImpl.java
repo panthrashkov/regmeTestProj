@@ -33,5 +33,7 @@ public class FmsDaoImpl implements FmsDao {
     @Override
     public void persist(Fms fms) {
         entityManager.persist(fms);
+        entityManager.flush();
+        entityManager.clear();
     }
 }

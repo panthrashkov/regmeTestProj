@@ -12,19 +12,22 @@ import java.util.Date;
         )
 })
 @Entity
+@Table(name = "fms")
 public class Fms {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Version
     private Date version;
-
+    @Column(name="code")
     private String code;
-
+    @Column(name="name")
     private String name;
 
+    @Column(name="record_version")
     private Integer recordVersion;
 
     public Fms(String code, String name, Integer recordVersion) {
