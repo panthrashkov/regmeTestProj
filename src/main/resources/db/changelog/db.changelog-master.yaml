@@ -1,0 +1,102 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: alex
+      changes:
+        - createTable:
+            tableName: fms
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
+              - column:
+                   name: version
+                   type: date
+                   constraints:
+                       nullable: false
+              - column:
+                   name: record_version
+                   type: int
+                   constraints:
+                       nullable: false
+  - changeSet:
+      id: 2
+      author: alex
+      changes:
+        - addUniqueConstraint:
+            columnNames: code
+            schemaName: public
+            tableName: fms
+
+  - changeSet:
+      id: 3
+      author: alex
+      changes:
+        - insert:
+            tableName: fms
+            columns:
+              - column:
+                  name: code
+                  value: code
+              - column:
+                  name: name
+                  value: name
+              - column:
+                  name: version
+                  value: now()
+              - column:
+                  name: record_version
+                  value: 1
+#
+#databaseChangeLog:
+#  - changeSet:
+#      id: 1
+#      author: marceloverdijk
+#      changes:
+#        - createTable:
+#            tableName: person
+#            columns:
+#              - column:
+#                  name: id
+#                  type: int
+#                  autoIncrement: true
+#                  constraints:
+#                    primaryKey: true
+#                    nullable: false
+#              - column:
+#                  name: first_name
+#                  type: varchar(255)
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: last_name
+#                  type: varchar(255)
+#                  constraints:
+#                    nullable: false
+#  - changeSet:
+#      id: 2
+#      author: marceloverdijk
+#      changes:
+#        - insert:
+#            tableName: person
+#            columns:
+#              - column:
+#                  name: first_name
+#                  value: Marcel
+#              - column:
+#                  name: last_name
+#                  value: Overdijk

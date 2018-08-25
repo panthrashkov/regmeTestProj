@@ -17,11 +17,13 @@ import java.util.List;
 @Slf4j
 public class FmsCsvParserImpl implements FmsCsvParser {
 
+    private static final String CHARSET_NAME = "WINDOWS-1251";
+
     @Override
     public List<Fms> getFmsList(String fileLocation) {
         List<Fms> fmsList = new ArrayList<>();
-        try (final Reader reader = new InputStreamReader(new FileInputStream(new File(fileLocation)),
-                "WINDOWS-1251")){
+        try (final FileInputStream fileInputStream = new FileInputStream(new File(fileLocation));
+                final Reader reader = new InputStreamReader(fileInputStream, CHARSET_NAME)){
             List<CSVRecord> records = CSVFormat.EXCEL.parse(reader).getRecords();
             String version = preprocessRecord(records.get(0).get(1));
             records.remove(0);
@@ -34,8 +36,6 @@ public class FmsCsvParserImpl implements FmsCsvParser {
         } catch (IOException exception) {
             log.error("Не удалось распарсить файл", exception);
             throw new ParseCsvException(exception);
-        }finally {
-            FileUtils.deleteQuietly(new File(fileLocation));
         }
         return fmsList;
     }
