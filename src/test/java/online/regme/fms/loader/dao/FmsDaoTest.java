@@ -7,7 +7,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest(classes = TestConfig.class)
 @Transactional
 @DirtiesContext
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class FmsDaoTest {
 
     private final String CODE  ="code";
